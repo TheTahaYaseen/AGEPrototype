@@ -1,8 +1,8 @@
 
-from django import views
+from . import views
 from django.urls import path
 
 
-url_patterns = [
+urlpatterns = [
     path("register", views.register_view, name = "register")
 ]
