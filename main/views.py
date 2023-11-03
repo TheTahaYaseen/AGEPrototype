@@ -23,7 +23,7 @@ def register_view(request):
 
     context = {"form": form, "error": error}
 
-    return render(request, "main/register.html", context)
+    return render(request, "main/auth/register.html", context)
 
 def login_view(request):
     
@@ -51,7 +51,7 @@ def login_view(request):
 
     context = {"error": error}
 
-    return render(request, "main/login.html", context)
+    return render(request, "main/auth/login.html", context)
 
 def logout_view(request):
 
@@ -64,9 +64,9 @@ def home_view(request):
 
     context = {}
 
-    return render(request, "main/home.html", context)
+    return render(request, "main/user_interface/home.html", context)
 
 def about_view(request):
     context = {}
 
-    return render(request, "main/about.html", context)
+    return render(request, "main/user_interface/about.html", context)
