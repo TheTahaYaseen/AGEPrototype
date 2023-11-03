@@ -65,3 +65,8 @@ def home_view(request):
     context = {}
 
     return render(request, "main/home.html", context)
+
+def about_view(request):
+    context = {}
+
+    return render(request, "main/about.html", context)
