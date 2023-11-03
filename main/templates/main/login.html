@@ -8,10 +8,10 @@
         <img src="images/hero-bg.jpg" alt="">
       </div>
     </div>
-    <div class="container">
+    <div class="container layout_padding2-top">
       <div class="heading_container heading_center">
         <h2>
-          Register
+          Login
         </h2>
         {% if error %}<h5 class="layout_padding2-top">{{error}}</h5>{% endif %}
     </div>
@@ -23,13 +23,15 @@
             
               <div class="contact_form-container">
                 <div>
-                    {% for field in form %}
-                    <label for="{{field.id}}">{{field.label}}</label>
-                    {{field}}
-                    {% endfor %}
+                    <div>
+                        <input type="text" placeholder="Username" name="username" />
+                      </div>    
+                    <div>
+                        <input type="text" placeholder="Password" name="password" />
+                      </div>    
                     <div class="btn-box ">
                     <button type="submit">
-                      Register
+                      Login
                     </button>
                   </div>
                 </div>
@@ -40,6 +42,4 @@
       </div>
     </div>
   </section>
-
-
 {% endblock content %}
