@@ -37,7 +37,7 @@ def login_view(request):
         password = request.POST.get("password")
 
         try:
-            user = User .object.get(username = username)
+            user = User.objects.get(username = username)
         except User.DoesNotExist:
             error = "User Does Not Exist"
 
@@ -52,3 +52,16 @@ def login_view(request):
     context = {"error": error}
 
     return render(request, "main/login.html", context)
+
+def logout_view(request):
+
+    if request.user.is_authenticated:
+        logout(request)
+
+    return redirect("home")
+
+def home_view(request):
+
+    context = {}
+
+    return render(request, "main/home.html", context)
