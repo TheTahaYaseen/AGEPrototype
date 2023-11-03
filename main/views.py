@@ -37,7 +37,7 @@ def login_view(request):
         password = request.POST.get("password")
 
         try:
-            user = User.object.get(username = username)
+            user = User .object.get(username = username)
         except User.DoesNotExist:
             error = "User Does Not Exist"
 
