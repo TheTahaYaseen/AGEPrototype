@@ -29,32 +29,20 @@
 </head>
 
 <body>
-  <div class="hero_area">
-    <!-- header section strats -->
-    <div class="hero_bg_box">
-      <div class="img-box">
-        <img src="{% static 'images/hero-bg' %}.jpg" alt="">
-      </div>
-    </div>
 
-    {% include "navigation.html" %}
-
+    {% include "navigation.html" %}  
+    
     {% block content %}
-
+    
     {% endblock content %}
 
-      <!-- footer section -->
-  <footer class="container-fluid footer_section">
-    <p>
-      &copy; <span id="currentYear"></span> All Rights Reserved. Design by
-      <a href="https://html.design/">Free Html Templates</a>
-    </p>
-  </footer>
-  <!-- footer section -->
+</div>
+    
+    {% include "footer.html" %}
 
-  <script src="{% static 'js/jquery-3' %}.4.1.min.js"></script>
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.js' %}"></script>
   <script src="{% static 'js/custom.js' %}"></script>
-</body>
+  </body>
 
 </html>
