@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 
 # Create your views here.
 def register_view(request):
@@ -36,7 +37,7 @@ def login_view(request):
         password = request.POST.get("password")
 
         try:
-            user = Users.object.get(username = username)
+            user = User.object.get(username = username)
         except User.DoesNotExist:
             error = "User Does Not Exist"
 
