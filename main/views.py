@@ -1,8 +1,11 @@
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+
+from .models import UserQuery
 
 # Create your views here.
 def register_view(request):
@@ -89,7 +92,26 @@ def contact_view(request):
     error = ""
 
     if request.method == "POST":
-        error = "Contact Functionality Not Availaible Yet!"
+
+        if not request.user.is_authenticated:
+            error = "You Need To Login Before Being Able To Contact Us!"
+
+        else:
+            subject = request.POST.get("subject")
+            message = request.POST.get("message")
+
+            user = request.user
+            admin_response = None
+
+            try:
+                UserQuery.objects.create(
+                    query_user = user,
+                    subject = subject,
+                    message = message,
+                    admin_response = admin_response
+                )
+            except IntegrityError:
+                error = "Subject Or Message Not In Correct Format!"
 
     context = {"error": error}  
 
