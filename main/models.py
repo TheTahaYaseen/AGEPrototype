@@ -30,12 +30,12 @@ class ProductCategory(models.Model):
 class Product:
     product_name = models.CharField(max_length=255)
     product_description = models.TextField()
-    product_category = models.ForeignKey(ProductCategory, on_delete=models.SET_NULL, null=True)
+    product_category = models.ForeignKey("ProductCategory", on_delete=models.SET_NULL, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
 class ProductMedia:
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey("Product", on_delete=models.CASCADE)
     media_file = models.FileField(upload_to="product_media/")
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
