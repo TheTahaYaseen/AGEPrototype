@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
-from .models import ProductCategory, UserQuery
+from .models import Product, ProductCategory, ProductMedia, UserQuery
 
 # Create your views here.
 def register_view(request):
@@ -141,13 +141,36 @@ def queries_view(request):
 def create_product_view(request):
 
     form_operation = "Create"
+    error = ""
     categories = ProductCategory.objects.all()
 
     if request.method == "POST":
-        files = request.FILES.getlist('product_media')
-        if files:
-            # Print the file names to check if they are coming through
-            for file in files:
-                print(file.name) 
-    context = {"form_operation": form_operation, "categories": categories}
+        product_name = request.POST.get('product_name')
+        product_description = request.POST.get('product_description')
+        product_category = request.POST.get('product_category')
+        product_image = request.FILES.get('product_image')
+
+        try:
+            product_category, created = ProductCategory.objects.get_or_create(product_category = product_category)
+        except Exception:
+            error = "An Error Occured During Creation Of Product Category!"
+
+        if not error:
+
+            try:
+                product = Product.objects.create(
+                    product_name = product_name,
+                    product_description = product_description,
+                    product_category = product_category,
+                )
+
+                ProductMedia.objects.create(
+                    product = product,
+                    media_file = product_image
+                )
+
+            except Exception:
+                error = "An Error Occured During Creation Of Product!"
+
+    context = {"form_operation": form_operation, "categories": categories, "error": error}
     return render(request, "main/admin_interface/product_form.html", context)
