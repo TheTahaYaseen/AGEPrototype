@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block content %}
 
 <section class="contact_section layout_padding">
     <div class="contact_bg_box">
       <div class="img-box">
-        <img src="images/hero-bg.jpg" alt="">
+        <img src="{% static 'images/hero-bg.jpg' %}" alt="">
       </div>
     </div>
     <div class="container">
@@ -18,10 +19,34 @@
       <div class="">
         <div class="row">
           <div class="col-md-10 mx-auto">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
               <div class="contact_form-container">
                 <div>
+                    <div>
+                      <div class="row">
+                        <div class="col-md-7 col-sm-12">
+                          <input type="text" placeholder="Product Name" name="product_name" />
+                        </div>
+                        <div class="col-md-5 col-sm-12">
+                          <div>
+                            <input type="text" name="product_category" placeholder="Product Category" list="product_categories_list">
+                            <datalist id="product_categories_list">
+                              {% for category in categories %}
+                              <option id="product_category_option" value="{{category.name}}">{{category.name}}</option>
+                              {% endfor %}
+                            </datalist>
+                          </div>
+                            </div>
+                      </div>
+                    </div>    
+                    <div>
+                      <input type="text" placeholder="Product Description" name="product_description" class="message_input" />
+                    </div>    
+                    <div>
+                      <input type="file" class="py-2" placeholder="Product Image" name="product_image" />
+                    </div>    
+
                     <div class="btn-box ">
                     <button type="submit">
                       {{form_operation}}

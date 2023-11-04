@@ -5,9 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
-from .forms import ProductForm
-
-from .models import UserQuery
+from .models import ProductCategory, UserQuery
 
 # Create your views here.
 def register_view(request):
@@ -143,6 +141,13 @@ def queries_view(request):
 def create_product_view(request):
 
     form_operation = "Create"
+    categories = ProductCategory.objects.all()
 
-    context = {"form_operation": form_operation}
+    if request.method == "POST":
+        files = request.FILES.getlist('product_media')
+        if files:
+            # Print the file names to check if they are coming through
+            for file in files:
+                print(file.name) 
+    context = {"form_operation": form_operation, "categories": categories}
     return render(request, "main/admin_interface/product_form.html", context)
