@@ -120,6 +120,20 @@ def contact_view(request):
 def queries_view(request):
     if not request.user.is_superuser:
         return redirect("home")
+    
+    if request.method == "POST":
+        query_id = request.POST.get("query_id")
+        response = request.POST.get("response")
+        
+        print(query_id)
+        query = UserQuery.objects.get(id = query_id)
+        query.admin_response = response
+        query.save()
 
-    context = {}
+    queries = UserQuery.objects.all()
+
+    unresponded_queries = [query for query in queries if not query.admin_response]
+    responded_queries = [query for query in queries if query.admin_response]
+
+    context = {"unresponded_queries": unresponded_queries, "responded_queries": responded_queries}
     return render(request, "main/admin_interface/queries.html", context)
