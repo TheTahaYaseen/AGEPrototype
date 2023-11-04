@@ -83,3 +83,14 @@ def specifications_admin_view(request):
 
     context = {}
     return render(request, "main/admin_interface/specifications.html", context)
+
+def contact_view(request):
+    
+    error = ""
+
+    if request.method == "POST":
+        error = "Contact Functionality Not Availaible Yet!"
+
+    context = {"error": error}  
+
+    return render(request, "main/user_interface/contact.html", context)
