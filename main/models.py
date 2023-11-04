@@ -27,14 +27,14 @@ class ProductCategory(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-class Product:
+class Product(models.Model):
     product_name = models.CharField(max_length=255)
     product_description = models.TextField()
     product_category = models.ForeignKey("ProductCategory", on_delete=models.SET_NULL, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-class ProductMedia:
+class ProductMedia(models.Model):
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
     media_file = models.FileField(upload_to="product_media/")
     updated = models.DateTimeField(auto_now=True)
