@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="contact_section layout_padding">
+    <div class="contact_bg_box">
+      <div class="img-box">
+        <img src="images/hero-bg.jpg" alt="">
+      </div>
+    </div>
+    <div class="container">
+      <div class="heading_container heading_center py-2">
+        <h2>
+          {{form_operation}} Product
+        </h2>
+        {% if error %}<h5 class="layout_padding2-top">{{error}}</h5>{% endif %}
+    </div>
+      <div class="">
+        <div class="row">
+          <div class="col-md-10 mx-auto">
+            <form method="POST">
+            {% csrf_token %}
+              <div class="contact_form-container">
+                <div>
+                    {% for field in form %}
+                    <label for="{{field.id}}">{{field.label}}</label>
+                    {{field}}
+                    {% endfor %}
+                    <div class="btn-box ">
+                    <button type="submit">
+                      {{form_operation}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
