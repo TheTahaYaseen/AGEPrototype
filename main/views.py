@@ -94,7 +94,7 @@ def contact_view(request):
     if request.method == "POST":
 
         if not request.user.is_authenticated:
-            error = "You Need To Login Before Being Able To Contact Us!"
+            error = "You Need To Login Before Being Able To Submit A Query!"
 
         else:
             subject = request.POST.get("subject")
