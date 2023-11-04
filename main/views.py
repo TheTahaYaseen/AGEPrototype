@@ -116,3 +116,10 @@ def contact_view(request):
     context = {"error": error}  
 
     return render(request, "main/user_interface/contact.html", context)
+
+def queries_view(request):
+    if not request.user.is_superuser:
+        return redirect("home")
+
+    context = {}
+    return render(request, "main/admin_interface/queries.html", context)
