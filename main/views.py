@@ -143,7 +143,6 @@ def queries_view(request):
 def create_product_view(request):
 
     form_operation = "Create"
-    form = ProductForm()
 
-    context = {"form": form, "form_operation": form_operation}
+    context = {"form_operation": form_operation}
     return render(request, "main/admin_interface/product_form.html", context)

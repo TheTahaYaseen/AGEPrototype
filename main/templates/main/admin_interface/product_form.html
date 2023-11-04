@@ -22,10 +22,6 @@
             {% csrf_token %}
               <div class="contact_form-container">
                 <div>
-                    {% for field in form %}
-                    <label for="{{field.id}}">{{field.label}}</label>
-                    {{field}}
-                    {% endfor %}
                     <div class="btn-box ">
                     <button type="submit">
                       {{form_operation}}
