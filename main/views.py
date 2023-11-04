@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
+from .forms import ProductForm
+
 from .models import UserQuery
 
 # Create your views here.
@@ -137,3 +139,11 @@ def queries_view(request):
 
     context = {"unresponded_queries": unresponded_queries, "responded_queries": responded_queries}
     return render(request, "main/admin_interface/queries.html", context)
+
+def create_product_view(request):
+
+    form_operation = "Create"
+    form = ProductForm()
+
+    context = {"form": form, "form_operation": form_operation}
+    return render(request, "main/admin_interface/product_form.html", context)
