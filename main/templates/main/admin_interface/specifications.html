@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="contact_section layout_padding">
+    <div class="contact_bg_box">
+      <div class="img-box">
+        <img src="images/hero-bg.jpg" alt="">
+      </div>
+    </div>
+    <div class="container">
+      <div class="heading_container heading_center py-2">
+        <h2>
+          Create Specification
+        </h2>
+        {% if error %}<h5 class="layout_padding2-top">{{error}}</h5>{% endif %}
+    </div>
+      <div class="">
+        <div class="row">
+          <div class="col-md-7 mx-auto">
+            <form method="POST">
+            {% csrf_token %}
+            
+              <div class="contact_form-container pt-3">
+                <div>
+                    <div>
+                        <input type="text" placeholder="Type" name="type" />
+                      </div>    
+                        
+                      <div class="btn-box ">
+                    <button type="submit">
+                      Add Detail
+                    </button>
+                  </div>
+                      <div class="btn-box ">
+                    <button type="submit">
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
