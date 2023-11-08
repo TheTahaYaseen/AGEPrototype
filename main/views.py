@@ -1,4 +1,4 @@
-from django.db import IntegrityError
+from django.db import IntegrityError, OperationalError
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.forms import UserCreationForm
@@ -125,7 +125,6 @@ def queries_view(request):
         query_id = request.POST.get("query_id")
         response = request.POST.get("response")
         
-        print(query_id)
         query = UserQuery.objects.get(id = query_id)
         query.admin_response = response
         query.save()
@@ -151,8 +150,8 @@ def create_product_view(request):
         product_image = request.FILES.get('product_image')
 
         try:
-            product_category, created = ProductCategory.objects.get_or_create(product_category = product_category)
-        except Exception:
+            product_category, created = ProductCategory.objects.get_or_create(category = product_category)
+        except OperationalError:
             error = "An Error Occured During Creation Of Product Category!"
 
         if not error:
@@ -169,7 +168,7 @@ def create_product_view(request):
                     media_file = product_image
                 )
 
-            except Exception:
+            except OperationalError:
                 error = "An Error Occured During Creation Of Product!"
 
     context = {"form_operation": form_operation, "categories": categories, "error": error}
