@@ -15,6 +15,9 @@ urlpatterns = [
     path("contact", views.contact_view, name = "contact"),
     path("queries", views.queries_view, name = "queries"),
  
-    path("create_product", views.create_product_view, name = "create_product"),
     path("products", views.products_view, name = "products"),
+    path("create_product", views.create_product_view, name = "create_product"),
+    path("product/<str:primary_key>", views.product_view, name = "product"),
+    path("edit_product/<str:primary_key>", views.edit_product_view, name = "edit_product"),
+    path("delete_product/<str:primary_key>", views.delete_product_view, name = "delete_product"),
 ]

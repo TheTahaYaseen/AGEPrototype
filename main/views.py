@@ -188,3 +188,27 @@ def products_view(request):
 
     context = {"products": products, "product_medias": product_medias}
     return render(request, "main/user_interface/products.html", context)
+
+def product_view(request, primary_key):
+
+    product = Product.objects.get(id = primary_key)
+    product_media = ProductMedia.objects.get(product = product)
+
+    context = {"product": product, "product_media": product_media}
+    return render(request, "main/user_interface/product.html", context)
+
+def edit_product_view(request, primary_key):
+
+    product = Product.objects.get(id = primary_key)
+    product_media = ProductMedia.objects.get(product = product)
+
+    context = {"product": product, "product_media": product_media}
+    return render(request, "main/admin_interface/edit_product.html", context)
+
+def delete_product_view(request, primary_key):
+
+    product = Product.objects.get(id = primary_key)
+    product_media = ProductMedia.objects.get(product = product)
+
+    context = {"product": product, "product_media": product_media}
+    return render(request, "main/admin_interface/delete_product.html", context)
