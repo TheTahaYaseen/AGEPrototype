@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="contact_section layout_padding">
+    <div class="contact_bg_box">
+      <div class="img-box">
+        <img src="{% static 'images/hero-bg.jpg' %}" alt="">
+      </div>
+    </div>
+    <div class="container">
+      <div class="heading_container heading_center py-2">
+        <h2>
+          {{form_operation}} Newsletter
+        </h2>
+        {% if error %}<h5 class="layout_padding2-top">{{error}}</h5>{% endif %}
+    </div>
+      <div class="">
+        <div class="row">
+          <div class="col-md-10 mx-auto">
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="contact_form-container">
+                <div>
+                    <div>
+                      <div class="row">
+                        <div class="col-md-7 col-sm-12">
+                      <input type="text" placeholder="Newsletter Name" name="newsletter_name" value="{% if newsletter %}{{newsletter.newsletter_name}}{% endif %}" />
+                        </div>
+                        <div class="col-md-5 col-sm-12">
+                          <div>
+                            <input type="text" name="newsletter_category" placeholder="Newsletter Category" list="newsletter_categories_list" value="{% if newsletter %}{{newsletter.newsletter_category.category}}{% endif %}">
+                            <datalist id="newsletter_categories_list">
+                              {% for category in categories %}
+                              <option id="newsletter_category_option" value="{{category.name}}">{{category.name}}</option>
+                              {% endfor %}
+                            </datalist>
+                          </div>
+                            </div>
+                      </div>
+                    </div>    
+                    <div>
+                      <textarea type="text" placeholder="Newsletter Content" name="newsletter_content" class="message_input" value="{% if newsletter %}{{newsletter.newsletter_content}}{% endif %}" />
+                    </div>
+                    <div>
+                      <input type="file" class="py-2 m-0" placeholder="Newsletter Image" name="newsletter_image" />
+                    </div>    
+                    {% if form_operation == "Update" %}    
+                      <p>If No Image Is Selected, Previous Image Will Be Used!</p>
+                    {% endif %}    
+
+                    <div class="btn-box ">
+                    <button type="submit">
+                      {{form_operation}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
