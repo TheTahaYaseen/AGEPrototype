@@ -685,6 +685,8 @@ a:focus {
   border: 1px solid transparent;
   text-transform: uppercase;
   font-weight: bold;
+  height: fit-content;
+  width: fit-content;
 }
 
 .contact_section .contact_form-container button:hover {

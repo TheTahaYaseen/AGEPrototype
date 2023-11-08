@@ -243,8 +243,18 @@ def edit_product_view(request, primary_key):
 
 def delete_product_view(request, primary_key):
 
+    if not request.user.is_superuser:
+        return redirect("home")
+
     product = Product.objects.get(id = primary_key)
     product_media = ProductMedia.objects.get(product = product)
 
-    context = {"product": product, "product_media": product_media}
+    if request.method == "POST":
+
+        Product.delete(product)
+        ProductMedia.delete(product_media)
+
+        return redirect("products")
+
+    context = {"product": product}
     return render(request, "main/admin_interface/delete_product.html", context)
