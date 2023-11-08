@@ -258,3 +258,23 @@ def delete_product_view(request, primary_key):
 
     context = {"product": product}
     return render(request, "main/admin_interface/delete_product.html", context)
+
+def newsletters_view(request):
+    context = {}
+    return render(request, "main/user_interface/newsletters.html", context)
+
+def newsletter_view(request):
+    context = {}
+    return render(request, "main/user_interface/newsletter.html", context)
+
+def create_newsletter_view(request):
+    context = {}
+    return render(request, "main/admin_interface/newsletter_form.html", context)
+
+def edit_newsletter_view(request):
+    context = {}
+    return render(request, "main/admin_interface/newsletter_form.html", context)
+
+def delete_newsletter_view(request):
+    context = {}
+    return render(request, "main/admin_interface/delete_newsletter.html", context)

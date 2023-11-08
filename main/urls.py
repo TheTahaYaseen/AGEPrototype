@@ -20,4 +20,10 @@ urlpatterns = [
     path("product/<str:primary_key>", views.product_view, name = "product"),
     path("edit_product/<str:primary_key>", views.edit_product_view, name = "edit_product"),
     path("delete_product/<str:primary_key>", views.delete_product_view, name = "delete_product"),
+
+    path("newsletters", views.newsletters_view, name = "newsletters"),
+    path("create_newsletter", views.create_newsletter_view, name = "create_newsletter"),
+    path("newsletter/<str:primary_key>", views.newsletter_view, name = "newsletter"),
+    path("edit_newsletter/<str:primary_key>", views.edit_newsletter_view, name = "edit_newsletter"),
+    path("delete_newsletter/<str:primary_key>", views.delete_newsletter_view, name = "delete_newsletter"),
 ]
