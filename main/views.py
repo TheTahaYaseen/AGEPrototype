@@ -138,7 +138,9 @@ def queries_view(request):
     return render(request, "main/admin_interface/queries.html", context)
 
 def create_product_view(request):
-
+    if not request.user.is_superuser:
+        return redirect("home")
+    
     form_operation = "Create"
     error = ""
     categories = ProductCategory.objects.all()
