@@ -140,6 +140,22 @@ def queries_view(request):
     context = {"unresponded_queries": unresponded_queries, "responded_queries": responded_queries}
     return render(request, "main/admin_interface/queries.html", context)
 
+def products_view(request):
+
+    products = Product.objects.all()
+    product_medias = ProductMedia.objects.all()
+
+    context = {"products": products, "product_medias": product_medias}
+    return render(request, "main/user_interface/products.html", context)
+
+def product_view(request, primary_key):
+
+    product = Product.objects.get(id = primary_key)
+    product_media = ProductMedia.objects.get(product = product)
+
+    context = {"product": product, "product_media": product_media}
+    return render(request, "main/user_interface/product.html", context)
+
 def create_product_view(request):
     if not request.user.is_superuser:
         return redirect("home")
@@ -181,29 +197,49 @@ def create_product_view(request):
     context = {"form_operation": form_operation, "categories": categories, "error": error}
     return render(request, "main/admin_interface/product_form.html", context)
 
-def products_view(request):
-
-    products = Product.objects.all()
-    product_medias = ProductMedia.objects.all()
-
-    context = {"products": products, "product_medias": product_medias}
-    return render(request, "main/user_interface/products.html", context)
-
-def product_view(request, primary_key):
-
-    product = Product.objects.get(id = primary_key)
-    product_media = ProductMedia.objects.get(product = product)
-
-    context = {"product": product, "product_media": product_media}
-    return render(request, "main/user_interface/product.html", context)
-
 def edit_product_view(request, primary_key):
 
+    if not request.user.is_superuser:
+        return redirect("home")
+    
+    form_operation = "Update"
+    error = ""
+    categories = ProductCategory.objects.all()
+
     product = Product.objects.get(id = primary_key)
     product_media = ProductMedia.objects.get(product = product)
 
-    context = {"product": product, "product_media": product_media}
-    return render(request, "main/admin_interface/edit_product.html", context)
+    if request.method == "POST":
+        product_name = request.POST.get('product_name')
+        product_description = request.POST.get('product_description')
+        product_category = request.POST.get('product_category')
+        product_image = request.FILES.get('product_image')
+
+        try:
+            product_category, created = ProductCategory.objects.get_or_create(category = product_category)
+        except OperationalError:
+            error = "An Error Occured During Creation Of Product Category!"
+
+        if not error:
+
+            try:
+
+                product.product_name = product_name
+                product.product_description = product_description
+                product.product_category = product_category
+
+                if product_image is not None:
+
+                    product_media.media_file = product_image
+
+                product.save()
+                error = "Product Successfully Updated!"
+
+            except OperationalError:
+                error = "An Error Occured During Updation Of Product!"
+
+    context = {"form_operation": form_operation, "categories": categories, "error": error, "product": product}
+    return render(request, "main/admin_interface/product_form.html", context)
 
 def delete_product_view(request, primary_key):
 
