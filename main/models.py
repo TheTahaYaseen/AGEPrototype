@@ -40,3 +40,21 @@ class ProductMedia(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
+class NewsletterCategory(models.Model):
+    category = models.CharField(max_length=255)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+class Newsletter(models.Model):
+    newsletter_title = models.CharField(max_length=255)
+    newsletter_content = models.TextField()
+    newsletter_category = models.ForeignKey("NewsletterCategory", on_delete=models.SET_NULL, null=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+class NewsletterMedia(models.Model):
+    newsletter = models.ForeignKey("Newsletter", on_delete=models.CASCADE)
+    media_file = models.FileField(upload_to="newsletter_media/")
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
