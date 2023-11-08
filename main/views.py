@@ -182,6 +182,9 @@ def create_product_view(request):
     return render(request, "main/admin_interface/product_form.html", context)
 
 def products_view(request):
-    
-    context = {}
+
+    products = Product.objects.all()
+    product_medias = ProductMedia.objects.all()
+
+    context = {"products": products, "product_medias": product_medias}
     return render(request, "main/user_interface/products.html", context)
