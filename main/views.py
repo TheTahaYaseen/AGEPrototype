@@ -110,6 +110,9 @@ def contact_view(request):
                     message = message,
                     admin_response = admin_response
                 )
+
+                error = "Query Successfully Submitted! Now Soon It Will Be Responded By An Admin!"
+
             except IntegrityError:
                 error = "Subject Or Message Not In Correct Format!"
 
@@ -170,8 +173,15 @@ def create_product_view(request):
                     media_file = product_image
                 )
 
+                error = "Product Successfully Created!"
+
             except OperationalError:
                 error = "An Error Occured During Creation Of Product!"
 
     context = {"form_operation": form_operation, "categories": categories, "error": error}
     return render(request, "main/admin_interface/product_form.html", context)
+
+def products_view(request):
+    
+    context = {}
+    return render(request, "main/user_interface/products.html", context)
