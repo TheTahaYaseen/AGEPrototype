@@ -13,7 +13,9 @@ urlpatterns = [
     path("about", views.about_view, name = "about"),
  
     path("contact", views.contact_view, name = "contact"),
+
     path("queries", views.queries_view, name = "queries"),
+    path("user_queries", views.user_queries_view, name = "user_queries"),
  
     path("products", views.products_view, name = "products"),
     path("create_product", views.create_product_view, name = "create_product"),

@@ -163,6 +163,15 @@ def queries_view(request):
     context = {"unresponded_queries": unresponded_queries, "responded_queries": responded_queries}
     return render(request, "main/admin_interface/queries.html", context)
 
+def user_queries_view(request):
+    if not request.user.is_authenticated:
+        return redirect("home")
+    
+    queries = UserQuery.objects.get(query_user = request.user)
+
+    context = {"queries": queries}
+    return render(request, "main/admin_interface/queries.html", context)
+
 def products_view(request):
 
     products = Product.objects.all()
