@@ -1,3 +1,4 @@
+import re
 from django.db import IntegrityError, OperationalError
 from django.shortcuts import render, redirect
 
@@ -22,7 +23,15 @@ def register_view(request):
             login(request, user)
             return redirect("home")
         else:
-            error = "An Error Occured During Registration"
+            error_dict = form.errors.as_data()
+            formatted_errors = []
+
+            for field, errors in error_dict.items():
+                for error in errors:
+                    error_string = re.sub('<.*?>', '', str(error))
+                    formatted_errors.append(f"{field}: {error_string}")
+
+            error = '\n'.join(formatted_errors)
 
     context = {"form": form, "error": error}
 
