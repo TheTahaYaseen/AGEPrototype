@@ -44,7 +44,7 @@
                       <input type="text" placeholder="Product Description" name="product_description" class="message_input" value="{% if product %}{{product.product_description}}{% endif %}" />
                     </div>
                     <div>
-                      <input type="file" class="py-2 m-0" placeholder="Product Image" name="product_image" />
+                      <input required type="file" class="py-2 m-0" placeholder="Product Image" name="product_image" />
                     </div>    
                     {% if form_operation == "Update" %}    
                       <p>If No Image Is Selected, Previous Image Will Be Used!</p>
