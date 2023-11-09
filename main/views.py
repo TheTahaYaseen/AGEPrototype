@@ -170,7 +170,7 @@ def user_queries_view(request):
     queries = UserQuery.objects.filter(query_user = request.user)
 
     context = {"queries": queries}
-    return render(request, "main/admin_interface/queries.html", context)
+    return render(request, "main/user_interface/queries.html", context)
 
 def products_view(request):
 
