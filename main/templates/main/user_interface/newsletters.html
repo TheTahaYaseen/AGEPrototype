@@ -40,8 +40,11 @@
                 {{ newsletter.newsletter_title }}
               </h6>
               <p>
-                {{ newsletter.newsletter_content[:100] }}
-              </p>
+                {% if newsletter.newsletter_content|length > 100 %}
+                {{ newsletter.newsletter_content|slice:":100" }}...
+            {% else %}
+                {{ newsletter.newsletter_content }}
+            {% endif %}              </p>
               <a href="{% url 'newsletter' newsletter.id %}">
                 Read Full Blog
               </a>

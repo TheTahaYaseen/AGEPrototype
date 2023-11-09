@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
-from .models import Product, ProductCategory, ProductMedia, UserQuery
+from .models import Newsletter, NewsletterMedia, Product, ProductCategory, ProductMedia, UserQuery
 
 # Create your views here.
 def register_view(request):
@@ -260,7 +260,9 @@ def delete_product_view(request, primary_key):
     return render(request, "main/admin_interface/delete_product.html", context)
 
 def newsletters_view(request):
-    context = {}
+    newsletters = Newsletter.objects.all()
+    newsletter_medias = NewsletterMedia.objects.all()
+    context = {"newsletters": newsletters, "newsletter_medias": newsletter_medias}
     return render(request, "main/user_interface/newsletters.html", context)
 
 def newsletter_view(request):
