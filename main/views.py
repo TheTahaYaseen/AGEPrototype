@@ -265,8 +265,10 @@ def newsletters_view(request):
     context = {"newsletters": newsletters, "newsletter_medias": newsletter_medias}
     return render(request, "main/user_interface/newsletters.html", context)
 
-def newsletter_view(request):
-    context = {}
+def newsletter_view(request, primary_key):
+    newsletter = Newsletter.objects.get(id = primary_key)
+    newsletter_media = NewsletterMedia.objects.get(newsletter = newsletter)    
+    context = {"newsletter": newsletter, "newsletter_media": newsletter_media}
     return render(request, "main/user_interface/newsletter.html", context)
 
 def create_newsletter_view(request):
