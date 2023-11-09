@@ -1,0 +1,38 @@
+<div class="col-md-6">
+    <div class="box">
+
+        <div class="img-box">    
+            {% if request.user.is_superuser %}
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'edit_newsletter' newsletter.id %}" class="p-2">
+                        Edit
+                    </a>         
+                    <a href="{% url 'delete_newsletter' newsletter.id %}" class="text-danger">
+                        Delete
+                    </a>               
+                </div>
+            </div>
+            {% endif %}
+            {% for media in newsletter.newslettermedia_set.all %}
+                <img src="{{ media.media_file.url }}" alt="{{ newsletter.newsletter_name }} Image" class="w-100">
+            {% endfor %}
+        </div>
+
+        <div class="detail-box">
+          <small>{{newsletter.newsletter_author}}</small>
+      <h6>
+        {{ newsletter.newsletter_title }}
+      </h6>
+      <p>
+        {% if newsletter.newsletter_content|length > 100 %}
+        {{ newsletter.newsletter_content|slice:":100" }}...
+    {% else %}
+        {{ newsletter.newsletter_content }}
+    {% endif %}              </p>
+      <a href="{% url 'newsletter' newsletter.id %}">
+        Read Full Newsletter
+      </a>
+    </div>
+  </div>
+</div>
