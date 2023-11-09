@@ -288,7 +288,7 @@ def create_newsletter_view(request):
         try:
             newsletter_category, created =  NewsletterCategory.objects.get_or_create(category = newsletter_category)
         except OperationalError:
-            error = "An Error Occured During Creation Of Newsletter Category!"
+            error = "An Error Occured During Publishing Of Newsletter Category!"
 
         if not error:
 
@@ -313,8 +313,45 @@ def create_newsletter_view(request):
 
     return render(request, "main/admin_interface/newsletter_form.html", context)
 
-def edit_newsletter_view(request):
-    context = {}
+def edit_newsletter_view(request, primary_key):
+    if not request.user.is_superuser:
+        return redirect("home")
+    
+    form_operation = "Update"
+    error = ""
+    categories = NewsletterCategory.objects.all()
+
+    newsletter = Newsletter.objects.get(id = primary_key)
+    newsletter_media = NewsletterMedia.objects.get(newsletter = newsletter)    
+
+    if request.method == "POST":
+        newsletter_title = request.POST.get('newsletter_title')
+        newsletter_content = request.POST.get('newsletter_content')
+        newsletter_category = request.POST.get('newsletter_category')
+        newsletter_image = request.FILES.get('newsletter_image')
+
+        try:
+            newsletter_category, created =  NewsletterCategory.objects.get_or_create(category = newsletter_category)
+        except OperationalError:
+            error = "An Error Occured During Updation Of Newsletter Category!"
+
+        if not error:
+
+            try:
+                newsletter.newsletter_title = newsletter_title
+                newsletter.newsletter_content = newsletter_content
+                newsletter.newsletter_category = newsletter_category
+
+                if newsletter_image is not None:
+                    newsletter_media.media_file = newsletter_image
+
+                error = "Newsletter Successfully Updated!"
+
+            except OperationalError:
+                error = "An Error Occured During Updation Of Newsletter!"
+
+    context = {"form_operation": form_operation, "categories": categories, "error": error, "newsletter": newsletter, "newsletter_media": newsletter_media}
+
     return render(request, "main/admin_interface/newsletter_form.html", context)
 
 def delete_newsletter_view(request):
