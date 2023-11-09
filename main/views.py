@@ -354,6 +354,19 @@ def edit_newsletter_view(request, primary_key):
 
     return render(request, "main/admin_interface/newsletter_form.html", context)
 
-def delete_newsletter_view(request):
-    context = {}
+def delete_newsletter_view(request, primary_key):
+    if not request.user.is_superuser:
+        return redirect("home")
+
+    newsletter = Newsletter.objects.get(id = primary_key)
+    newsletter_media = NewsletterMedia.objects.get(newsletter = newsletter)
+
+    if request.method == "POST":
+
+        Newsletter.delete(newsletter)
+        NewsletterMedia.delete(newsletter_media)
+
+        return redirect("newsletters")
+
+    context = {"newsletter": newsletter}
     return render(request, "main/admin_interface/delete_newsletter.html", context)
