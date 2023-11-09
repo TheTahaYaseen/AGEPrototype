@@ -15,9 +15,11 @@
         User Queries
       </h2>
   </div>
+      {% if unresponded_queries %}
       <h4 class="pt-5">
         Unresponded Queries
       </h4>
+      {% endif %}
       {% for query in unresponded_queries %}
       <form  method="POST">
       {% csrf_token %}
