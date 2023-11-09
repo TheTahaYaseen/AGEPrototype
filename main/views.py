@@ -107,19 +107,6 @@ def about_view(request):
 
     return render(request, "main/user_interface/about.html", context)
 
-
-def specifications_admin_view(request):
-    # Create Form 
-    # Fetches All Specifications
-    # Option To Update
-    # Option To Delete
-
-    if not request.user.is_superuser:
-        return redirect("home")
-
-    context = {}
-    return render(request, "main/admin_interface/specifications.html", context)
-
 def contact_view(request):
     
     error = ""
