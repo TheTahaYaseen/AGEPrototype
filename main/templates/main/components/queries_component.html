@@ -26,6 +26,10 @@
                     <hr>
                     <p style="color: #1c1c1c;">Response: {{query.admin_response}}</p>
                   </div>
+                  <hr>
+                  <a href="{% url 'delete_query' query.id %}" class="text-danger">
+                    Delete
+                </a>
                 </div>    
                     </div>
                   </div>

@@ -412,3 +412,22 @@ def delete_newsletter_view(request, primary_key):
 
     context = {"newsletter": newsletter}
     return render(request, "main/admin_interface/delete_newsletter.html", context)
+
+def delete_query_view(request, primary_key):
+
+    if not request.user.is_authenticated:
+        return redirect("home")
+
+    query = UserQuery.objects.get(id = primary_key)
+
+    if request.user != query.query_user:
+        return redirect("user_queries")
+
+    if request.method == "POST":
+
+        UserQuery.delete(query)
+
+        return redirect("user_queries")
+
+    context = {"query": query}
+    return render(request, "main/user_interface/delete_query.html", context)
