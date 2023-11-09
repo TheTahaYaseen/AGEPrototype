@@ -4,6 +4,11 @@
       <h2>
         Our Newsletters
       </h2>
+      {% if request.user.is_superuser %}
+      <a href="{% url 'create_newsletter' %}" class="mt-3">
+          Create A New Newsletter
+        </a>
+        {% endif %}
     </div>
 
 <div class="row">
