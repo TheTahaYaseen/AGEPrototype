@@ -167,7 +167,7 @@ def user_queries_view(request):
     if not request.user.is_authenticated:
         return redirect("home")
     
-    queries = UserQuery.objects.get(query_user = request.user)
+    queries = UserQuery.objects.filter(query_user = request.user)
 
     context = {"queries": queries}
     return render(request, "main/admin_interface/queries.html", context)
