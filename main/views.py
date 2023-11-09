@@ -88,6 +88,8 @@ def home_view(request):
         products = products[:3]
         product_medias = product_medias[:2]
 
+    queries = ""
+
     if request.user.is_authenticated:
         queries = UserQuery.objects.filter(query_user = request.user).order_by("-created")
 

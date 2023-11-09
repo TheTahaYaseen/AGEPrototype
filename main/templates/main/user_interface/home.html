@@ -5,11 +5,11 @@
 {% include "../components/about_component.html" %}
 {% include "../components/products_component.html" %}
 {% include "../components/newsletters_component.html" %}
-{% if request.user.is_authenticated %}
-    {% if queries %}
-        {% include "../components/queries_component.html" %}
-    {% endif %}
+
+{% if queries %}
+    {% include "../components/queries_component.html" %}
 {% endif %}
+
 {% include "../components/contact_component.html" %}
 
 {% endblock content %}
