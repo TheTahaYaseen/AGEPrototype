@@ -74,7 +74,14 @@ def logout_view(request):
 
 def home_view(request):
 
-    context = {}
+    newsletters = Newsletter.objects.order_by('-created')
+    newsletter_medias = NewsletterMedia.objects.order_by('-created')
+
+    if len(newsletters) and len(newsletter_medias) > 2:
+        newsletters = newsletters[:2]
+        newsletter_medias = newsletter_medias[:2]
+
+    context = {"newsletters": newsletters, "newsletter_medias": newsletter_medias}
 
     return render(request, "main/user_interface/home.html", context)
 

@@ -2,23 +2,7 @@
 {% load static %}
 
 {% block content %}
-<section class="service_section layout_padding ">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Our Newsletters
-        </h2>
-      </div>
 
-
-      <div class="row">
-        {% for newsletter in newsletters %}
-        {% include "../components/newsletters_component.html" %}
-        {% endfor %}
-      </div>
-
-    </div>
-  </section>
-
+{% include "../components/newsletters_component.html" %}
 
 {% endblock content %}
