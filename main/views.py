@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
-from .models import Newsletter, NewsletterMedia, Product, ProductCategory, ProductMedia, UserQuery
+from .models import Newsletter, NewsletterCategory, NewsletterMedia, Product, ProductCategory, ProductMedia, UserQuery
 
 # Create your views here.
 def register_view(request):
@@ -272,7 +272,45 @@ def newsletter_view(request, primary_key):
     return render(request, "main/user_interface/newsletter.html", context)
 
 def create_newsletter_view(request):
-    context = {}
+    if not request.user.is_superuser:
+        return redirect("home")
+    
+    form_operation = "Publish"
+    error = ""
+    categories = NewsletterCategory.objects.all()
+
+    if request.method == "POST":
+        newsletter_title = request.POST.get('newsletter_title')
+        newsletter_content = request.POST.get('newsletter_content')
+        newsletter_category = request.POST.get('newsletter_category')
+        newsletter_image = request.FILES.get('newsletter_image')
+
+        try:
+            newsletter_category, created =  NewsletterCategory.objects.get_or_create(category = newsletter_category)
+        except OperationalError:
+            error = "An Error Occured During Creation Of Newsletter Category!"
+
+        if not error:
+
+            try:
+                newsletter = Newsletter.objects.create(
+                    newsletter_title = newsletter_title,
+                    newsletter_content = newsletter_content,
+                    newsletter_category = newsletter_category,
+                )
+
+                NewsletterMedia.objects.create(
+                    newsletter = newsletter,
+                    media_file = newsletter_image
+                )
+
+                error = "Newsletter Successfully Published!"
+
+            except OperationalError:
+                error = "An Error Occured During Publishing Of Newsletter!"
+
+    context = {"form_operation": form_operation, "categories": categories, "error": error}
+
     return render(request, "main/admin_interface/newsletter_form.html", context)
 
 def edit_newsletter_view(request):
