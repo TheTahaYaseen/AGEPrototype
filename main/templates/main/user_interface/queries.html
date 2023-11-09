@@ -3,41 +3,6 @@
 
 {% block content %}
 
-<section class="contact_section service_section layout_padding">
-  <div class="contact_bg_box">
-    <div class="img-box">
-      <img src="{% static 'images/hero-bg.jpg' %}" alt="">
-    </div>
-  </div>
-  <div class="container">
-    <div class="heading_container heading_center py-2">
-      <h2>
-        Your Queries
-      </h2>
-  </div>
-    {% for query in queries %}
-      <form  method="POST">
-      {% csrf_token %}
-        <div class="row">
-        <div class="col-md-12 mx-auto">
-          <div class="contact_form-container">
-            <div>
-              <div class="box">
-                <div class="detail-box">
-                  <p style="color: #101010; font-size: 14px;">{{query.query_user}}</p>
-                  <h6 style="color: #1c1c1c;">{{query.subject}}</h6>
-                  <p style="color: #101010;">{{query.message}}</p>
-                  <hr>
-                  <p style="color: #1c1c1c;">Response: {{query.admin_response}}</p>
-                </div>
-              </div>    
-                  </div>
-                </div>
-            </div>
-          </div>
-        </form>
-          {% endfor %}
-  </div>
-</section>
+{% include "../components/queries_component.html" %}
 
 {% endblock content %}
