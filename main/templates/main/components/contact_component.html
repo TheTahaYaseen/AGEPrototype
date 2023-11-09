@@ -15,7 +15,7 @@
       <div class="">
         <div class="row">
           <div class="col-md-7 mx-auto">
-            <form method="POST">
+            <form method="POST" action="{% url 'contact' %}">
             {% csrf_token %}
             
               <div class="contact_form-container">
