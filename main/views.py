@@ -88,10 +88,11 @@ def home_view(request):
         products = products[:3]
         product_medias = product_medias[:2]
 
-    queries = UserQuery.objects.filter(query_user = request.user).order_by("-created")
+    if request.user.is_authenticated:
+        queries = UserQuery.objects.filter(query_user = request.user).order_by("-created")
 
-    if len(queries) > 2:
-        queries = queries[2]
+        if len(queries) > 2:
+            queries = queries[2]
 
     context = {"products": products, "product_medias": product_medias,
                 "newsletters": newsletters, "newsletter_medias": newsletter_medias,
